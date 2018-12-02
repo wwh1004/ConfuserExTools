@@ -5,10 +5,10 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{3FEF0836-A692-4C86-8C1A-847561472830}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>ConfuserExTools</RootNamespace>
     <AssemblyName>AntiTamperKiller</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
@@ -21,8 +21,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <LangVersion>7.3</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <NoWarn>IDE0032</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,72 +32,20 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <LangVersion>7.3</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
+    <NoWarn>IDE0032</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AntiTamperKiller.cs" />
-    <Compile Include="de4dot.blocks\BaseBlock.cs" />
-    <Compile Include="de4dot.blocks\Block.cs" />
-    <Compile Include="de4dot.blocks\Blocks.cs" />
-    <Compile Include="de4dot.blocks\BlocksSorter.cs" />
-    <Compile Include="de4dot.blocks\cflow\AccessChecker.cs" />
-    <Compile Include="de4dot.blocks\cflow\BlockCflowDeobfuscator.cs" />
-    <Compile Include="de4dot.blocks\cflow\BlockDeobfuscator.cs" />
-    <Compile Include="de4dot.blocks\cflow\BlocksCflowDeobfuscator.cs" />
-    <Compile Include="de4dot.blocks\cflow\BranchEmulator.cs" />
-    <Compile Include="de4dot.blocks\cflow\CachedCflowDeobfuscator.cs" />
-    <Compile Include="de4dot.blocks\cflow\CflowDeobfuscator.cs" />
-    <Compile Include="de4dot.blocks\cflow\CflowUtils.cs" />
-    <Compile Include="de4dot.blocks\cflow\ConstantsFolder.cs" />
-    <Compile Include="de4dot.blocks\cflow\DeadCodeRemover.cs" />
-    <Compile Include="de4dot.blocks\cflow\DeadStoreRemover.cs" />
-    <Compile Include="de4dot.blocks\cflow\DupBlockDeobfuscator.cs" />
-    <Compile Include="de4dot.blocks\cflow\IBlocksDeobfuscator.cs" />
-    <Compile Include="de4dot.blocks\cflow\ICflowDeobfuscator.cs" />
-    <Compile Include="de4dot.blocks\cflow\InstructionEmulator.cs" />
-    <Compile Include="de4dot.blocks\cflow\Int32Value.cs" />
-    <Compile Include="de4dot.blocks\cflow\Int64Value.cs" />
-    <Compile Include="de4dot.blocks\cflow\MethodCallInliner.cs" />
-    <Compile Include="de4dot.blocks\cflow\MethodCallInlinerBase.cs" />
-    <Compile Include="de4dot.blocks\cflow\Real8Value.cs" />
-    <Compile Include="de4dot.blocks\cflow\StLdlocFixer.cs" />
-    <Compile Include="de4dot.blocks\cflow\SwitchCflowDeobfuscator.cs" />
-    <Compile Include="de4dot.blocks\cflow\Value.cs" />
-    <Compile Include="de4dot.blocks\cflow\ValueStack.cs" />
-    <Compile Include="de4dot.blocks\CodeGenerator.cs" />
-    <Compile Include="de4dot.blocks\DeadBlocksRemover.cs" />
-    <Compile Include="de4dot.blocks\DotNetUtils.cs" />
-    <Compile Include="de4dot.blocks\DumpedMethod.cs" />
-    <Compile Include="de4dot.blocks\DumpedMethods.cs" />
-    <Compile Include="de4dot.blocks\FilterHandlerBlock.cs" />
-    <Compile Include="de4dot.blocks\ForwardScanOrder.cs" />
-    <Compile Include="de4dot.blocks\GenericArgsSubstitutor.cs" />
-    <Compile Include="de4dot.blocks\HandlerBlock.cs" />
-    <Compile Include="de4dot.blocks\Instr.cs" />
-    <Compile Include="de4dot.blocks\InstructionListParser.cs" />
-    <Compile Include="de4dot.blocks\MemberDefDict.cs" />
-    <Compile Include="de4dot.blocks\MethodBlocks.cs" />
-    <Compile Include="de4dot.blocks\ScopeBlock.cs" />
-    <Compile Include="de4dot.blocks\StackTracePatcher.cs" />
-    <Compile Include="de4dot.blocks\TryBlock.cs" />
-    <Compile Include="de4dot.blocks\TryHandlerBlock.cs" />
-    <Compile Include="de4dot.blocks\Utils.cs" />
-    <Compile Include="Decflower.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="PEInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Libraries\dnlib\src\dnlib.csproj">
-      <Project>{fdfc1237-143f-4919-8318-4926901f4639}</Project>
-      <Name>dnlib</Name>
-    </ProjectReference>
+    <Compile Include="ToolSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="Tool.Interface">
+      <HintPath>..\Libraries\ToolLoader\Tool.Interface.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
