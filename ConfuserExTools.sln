@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27924.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30406.217
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntiTamperKiller", "AntiTamperKiller\AntiTamperKiller.csproj", "{3FEF0836-A692-4C86-8C1A-847561472830}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dnlib", "Libraries\dnlib\src\dnlib.csproj", "{FDFC1237-143F-4919-8318-4926901F4639}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dnlib", "Libraries\dnlib\src\dnlib.csproj", "{FDFC1237-143F-4919-8318-4926901F4639}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProxyKiller", "ProxyKiller\ProxyKiller.csproj", "{97843730-F812-435B-8FEE-EB972309018C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{CB5AEF43-4AE8-4DFD-9A5B-895CB5564473}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +25,16 @@ Global
 		{FDFC1237-143F-4919-8318-4926901F4639}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDFC1237-143F-4919-8318-4926901F4639}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDFC1237-143F-4919-8318-4926901F4639}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97843730-F812-435B-8FEE-EB972309018C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97843730-F812-435B-8FEE-EB972309018C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97843730-F812-435B-8FEE-EB972309018C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97843730-F812-435B-8FEE-EB972309018C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FDFC1237-143F-4919-8318-4926901F4639} = {CB5AEF43-4AE8-4DFD-9A5B-895CB5564473}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19F53293-8F4D-49B4-B53B-CF477E6F38D3}
