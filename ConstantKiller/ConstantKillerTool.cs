@@ -4,21 +4,25 @@ using dnlib.DotNet;
 using dnlib.DotNet.Writer;
 using Tool.Interface;
 
-namespace ConfuserExTools.ProxyKiller {
-	public sealed class ProxyKillerTool : ITool<ProxyKillerSettings> {
-		private ProxyKillerSettings _settings;
+namespace ConfuserExTools.ConstantKiller {
+	public sealed class ConstantKillerTool : ITool<ConstantKillerSettings> {
+		private ConstantKillerSettings _settings;
 		private ModuleDef _module;
 		private int _count;
 
 		public string Title => GetTitle();
 
-		public void Execute(ProxyKillerSettings settings) {
+		public void Execute(ConstantKillerSettings settings) {
+			Logger.Initialize();
+			// TODO 解决logger的问题，目前不能共享
+			// todo: proxykiller也要logger.sync()
 			_settings = settings;
 			using (var module = ModuleDefMD.Load(settings.AssemblyPath)) {
 				_module = module;
-				_count = ProxyKillerImpl.Execute(module, settings.IgnoreAccess, !settings.PreserveProxyMethods && !settings.PreserveAll);
-				SaveAs(PathInsertPostfix(settings.AssemblyPath, ".pk"));
+				_count = ConstantKillerImpl.Execute(module, Assembly.LoadFile(settings.AssemblyPath).ManifestModule);
+				SaveAs(PathInsertPostfix(settings.AssemblyPath, ".ck"));
 			}
+			Logger.Synchronize();
 		}
 
 		private static string PathInsertPostfix(string path, string postfix) {
@@ -26,7 +30,7 @@ namespace ConfuserExTools.ProxyKiller {
 		}
 
 		private void SaveAs(string filePath) {
-			Logger.LogInfo($"共 {_count} 个代理方法被还原");
+			Logger.LogInfo($"共 {_count} 个常量被解密");
 			Logger.LogInfo("正在保存: " + Path.GetFullPath(filePath));
 			Logger.LogNewLine();
 			var options = new ModuleWriterOptions(_module);

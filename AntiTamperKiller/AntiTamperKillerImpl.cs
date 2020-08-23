@@ -5,8 +5,12 @@ using System.Runtime.InteropServices;
 
 namespace ConfuserExTools.AntiTamperKiller {
 	public static unsafe class AntiTamperKillerImpl {
-		public static byte[] Execute(byte[] peImage) {
-			var module = Assembly.Load(peImage).ManifestModule;
+		public static byte[] Execute(Module module, byte[] peImage) {
+			if (module is null)
+				throw new ArgumentNullException(nameof(module));
+			if (peImage is null)
+				throw new ArgumentNullException(nameof(peImage));
+
 			var peInfo = new PEInfo((void*)Marshal.GetHINSTANCE(module));
 			var sectionHeader = peInfo.SectionHeaders[0];
 			byte[] section = new byte[sectionHeader.SizeOfRawData];

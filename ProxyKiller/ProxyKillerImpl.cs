@@ -15,6 +15,7 @@ namespace ConfuserExTools.ProxyKiller {
 					continue;
 				if (!method.IsPrivateScope || !method.IsStatic)
 					continue;
+
 				bool isProxy = true;
 				var realInstruction = default(Instruction);
 				foreach (var instruction in method.Body.Instructions) {

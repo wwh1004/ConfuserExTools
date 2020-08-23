@@ -10,7 +10,7 @@
 		<LangVersion>7.3</LangVersion>
 		<OutputPath>..\bin\$(Configuration)</OutputPath>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-		<RootNamespace>ConfuserExTools.ProxyKiller</RootNamespace>
+		<RootNamespace>ConfuserExTools.ConstantKiller</RootNamespace>
 	</PropertyGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Libraries\dnlib\src\dnlib.csproj" />

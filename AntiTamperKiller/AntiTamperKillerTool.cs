@@ -8,7 +8,7 @@ namespace ConfuserExTools.AntiTamperKiller {
 		public string Title => GetTitle();
 
 		public void Execute(AntiTamperKillerSettings settings) {
-			byte[] peImage = AntiTamperKillerImpl.Execute(File.ReadAllBytes(settings.AssemblyPath));
+			byte[] peImage = AntiTamperKillerImpl.Execute(Assembly.LoadFile(settings.AssemblyPath).ManifestModule, File.ReadAllBytes(settings.AssemblyPath));
 			SaveAs(PathInsertPostfix(settings.AssemblyPath, ".atk"), peImage);
 		}
 

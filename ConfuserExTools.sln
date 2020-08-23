@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProxyKiller", "ProxyKiller\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{CB5AEF43-4AE8-4DFD-9A5B-895CB5564473}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConstantKiller", "ConstantKiller\ConstantKiller.csproj", "{F2CEEB29-4DB4-4DE3-AD5B-F4CD4386E695}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{97843730-F812-435B-8FEE-EB972309018C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97843730-F812-435B-8FEE-EB972309018C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97843730-F812-435B-8FEE-EB972309018C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2CEEB29-4DB4-4DE3-AD5B-F4CD4386E695}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2CEEB29-4DB4-4DE3-AD5B-F4CD4386E695}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2CEEB29-4DB4-4DE3-AD5B-F4CD4386E695}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2CEEB29-4DB4-4DE3-AD5B-F4CD4386E695}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
