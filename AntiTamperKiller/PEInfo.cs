@@ -1,14 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 
-namespace ConfuserExTools {
-	[StructLayout(LayoutKind.Sequential, Pack = 1)]
+namespace ConfuserExTools.AntiTamperKiller {
+	[StructLayout(LayoutKind.Sequential)]
 	internal unsafe struct IMAGE_SECTION_HEADER {
-		public static uint UnmanagedSize = (uint)sizeof(IMAGE_SECTION_HEADER);
-
 		public fixed byte Name[8];
 		public uint VirtualSize;
 		public uint VirtualAddress;
@@ -24,20 +18,17 @@ namespace ConfuserExTools {
 	internal sealed unsafe class PEInfo {
 		private readonly void* _pPEImage;
 		private readonly uint _sectionsCount;
-		private readonly IMAGE_SECTION_HEADER* pSectionHeaders;
+		private readonly IMAGE_SECTION_HEADER* _pSectionHeaders;
 
 		public void* PEImage => _pPEImage;
 
 		public uint SectionsCount => _sectionsCount;
 
-		public IMAGE_SECTION_HEADER* SectionHeaders => pSectionHeaders;
+		public IMAGE_SECTION_HEADER* SectionHeaders => _pSectionHeaders;
 
 		public PEInfo(void* pPEImage) {
-			byte* p;
-			ushort optionalHeaderSize;
-
 			_pPEImage = pPEImage;
-			p = (byte*)pPEImage;
+			byte* p = (byte*)pPEImage;
 			p += *(uint*)(p + 0x3C);
 			// NtHeader
 			p += 4 + 2;
@@ -45,12 +36,12 @@ namespace ConfuserExTools {
 			_sectionsCount = *(ushort*)p;
 			p += 2 + 4 + 4 + 4;
 			// 跳过 NumberOfSections + TimeDateStamp + PointerToSymbolTable + NumberOfSymbols
-			optionalHeaderSize = *(ushort*)p;
+			ushort optionalHeaderSize = *(ushort*)p;
 			p += 2 + 2;
 			// 跳过 SizeOfOptionalHeader + Characteristics
 			p += optionalHeaderSize;
 			// 跳过 OptionalHeader
-			pSectionHeaders = (IMAGE_SECTION_HEADER*)p;
+			_pSectionHeaders = (IMAGE_SECTION_HEADER*)p;
 		}
 	}
 }

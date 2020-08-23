@@ -1,6 +1,3 @@
 [submodule "Libraries/dnlib"]
 	path = Libraries/dnlib
 	url = https://github.com/0xd4d/dnlib.git
-[submodule "Libraries/MinHook"]
-	path = Libraries/MinHook
-	url = git@gitlab.com:wwh1004/minhook.git
