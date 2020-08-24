@@ -30,7 +30,7 @@ namespace ConfuserExTools.ProxyKiller {
 
 		private void SaveAs(string filePath) {
 			Logger.LogInfo($"共 {_count} 个代理方法被还原");
-			Logger.LogInfo("正在保存: " + Path.GetFullPath(filePath));
+			Logger.LogInfo($"正在保存: {filePath}");
 			Logger.LogInfo();
 			var options = new ModuleWriterOptions(_module);
 			if (_settings.PreserveAll)

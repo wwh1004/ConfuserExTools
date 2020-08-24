@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30406.217
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntiTamperKiller", "AntiTamperKiller\AntiTamperKiller.csproj", "{3FEF0836-A692-4C86-8C1A-847561472830}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AntiTamperKiller", "AntiTamperKiller\AntiTamperKiller.csproj", "{3FEF0836-A692-4C86-8C1A-847561472830}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dnlib", "Libraries\dnlib\src\dnlib.csproj", "{FDFC1237-143F-4919-8318-4926901F4639}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{CB5AEF43-4AE8-4DFD-9A5B-895CB5564473}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConstantKiller", "ConstantKiller\ConstantKiller.csproj", "{F2CEEB29-4DB4-4DE3-AD5B-F4CD4386E695}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfuserExKiller", "ConfuserExKiller\ConfuserExKiller.csproj", "{2F20BF5A-A5C2-4BFA-96E6-ACD79586E4E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{F2CEEB29-4DB4-4DE3-AD5B-F4CD4386E695}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2CEEB29-4DB4-4DE3-AD5B-F4CD4386E695}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2CEEB29-4DB4-4DE3-AD5B-F4CD4386E695}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F20BF5A-A5C2-4BFA-96E6-ACD79586E4E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F20BF5A-A5C2-4BFA-96E6-ACD79586E4E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F20BF5A-A5C2-4BFA-96E6-ACD79586E4E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F20BF5A-A5C2-4BFA-96E6-ACD79586E4E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

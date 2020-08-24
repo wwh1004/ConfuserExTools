@@ -30,7 +30,7 @@ namespace ConfuserExTools.ConstantKiller {
 
 		private void SaveAs(string filePath) {
 			Logger.LogInfo($"共 {_count} 个常量被解密");
-			Logger.LogInfo("正在保存: " + Path.GetFullPath(filePath));
+			Logger.LogInfo($"正在保存: {filePath}");
 			Logger.LogInfo();
 			var options = new ModuleWriterOptions(_module);
 			if (_settings.PreserveAll)

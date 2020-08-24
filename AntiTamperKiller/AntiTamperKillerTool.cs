@@ -19,7 +19,7 @@ namespace ConfuserExTools.AntiTamperKiller {
 		}
 
 		private static void SaveAs(string filePath, byte[] peImage) {
-			Logger.LogInfo("正在保存: " + Path.GetFullPath(filePath));
+			Logger.LogInfo($"正在保存: {filePath}");
 			Logger.LogInfo("请手动移除AntiTamper初始化代码");
 			Logger.LogInfo();
 			File.WriteAllBytes(filePath, peImage);
