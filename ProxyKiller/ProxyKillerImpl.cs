@@ -2,18 +2,19 @@ using System;
 using System.Collections.Generic;
 using dnlib.DotNet;
 using dnlib.DotNet.Emit;
+using Tool;
 
 namespace ConfuserExTools.ProxyKiller {
 	public static class ProxyKillerImpl {
 		public static int Execute(ModuleDef module, bool ignoreAccess, bool removeProxyMethods) {
-			if (ignoreAccess)
-				throw new NotSupportedException();
+			if (module is null)
+				throw new ArgumentNullException(nameof(module));
 
 			var proxyMethods = new Dictionary<MethodDef, Instruction>();
 			foreach (var method in module.EnumerateAllMethods()) {
 				if (!method.HasBody)
 					continue;
-				if (!method.IsPrivateScope || !method.IsStatic)
+				if (!(ignoreAccess || method.IsPrivateScope) || !method.IsStatic)
 					continue;
 
 				bool isProxy = true;

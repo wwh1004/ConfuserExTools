@@ -1,6 +1,6 @@
-using System;
 using System.IO;
 using System.Reflection;
+using Tool;
 using Tool.Interface;
 
 namespace ConfuserExTools.AntiTamperKiller {
@@ -8,8 +8,10 @@ namespace ConfuserExTools.AntiTamperKiller {
 		public string Title => GetTitle();
 
 		public void Execute(AntiTamperKillerSettings settings) {
+			Logger.Initialize(false);
 			byte[] peImage = AntiTamperKillerImpl.Execute(Assembly.LoadFile(settings.AssemblyPath).ManifestModule, File.ReadAllBytes(settings.AssemblyPath));
 			SaveAs(PathInsertPostfix(settings.AssemblyPath, ".atk"), peImage);
+			Logger.Flush();
 		}
 
 		private static string PathInsertPostfix(string path, string postfix) {
@@ -17,9 +19,9 @@ namespace ConfuserExTools.AntiTamperKiller {
 		}
 
 		private static void SaveAs(string filePath, byte[] peImage) {
-			Console.WriteLine("正在保存: " + Path.GetFullPath(filePath));
-			Console.WriteLine("请手动移除AntiTamper初始化代码！");
-			Console.WriteLine();
+			Logger.LogInfo("正在保存: " + Path.GetFullPath(filePath));
+			Logger.LogInfo("请手动移除AntiTamper初始化代码");
+			Logger.LogInfo();
 			File.WriteAllBytes(filePath, peImage);
 		}
 

@@ -14,7 +14,7 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<Reference Include="Tool.Interface">
-			<HintPath>..\Libraries\ToolLoader\Tool.Interface.dll</HintPath>
+			<HintPath>..\Libraries\Tool.Interface\Tool.Interface.dll</HintPath>
 		</Reference>
 	</ItemGroup>
 </Project>

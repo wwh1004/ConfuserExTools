@@ -2,6 +2,7 @@ using System.IO;
 using System.Reflection;
 using dnlib.DotNet;
 using dnlib.DotNet.Writer;
+using Tool;
 using Tool.Interface;
 
 namespace ConfuserExTools.ProxyKiller {
@@ -13,12 +14,14 @@ namespace ConfuserExTools.ProxyKiller {
 		public string Title => GetTitle();
 
 		public void Execute(ProxyKillerSettings settings) {
+			Logger.Initialize(false);
 			_settings = settings;
 			using (var module = ModuleDefMD.Load(settings.AssemblyPath)) {
 				_module = module;
 				_count = ProxyKillerImpl.Execute(module, settings.IgnoreAccess, !settings.PreserveProxyMethods && !settings.PreserveAll);
 				SaveAs(PathInsertPostfix(settings.AssemblyPath, ".pk"));
 			}
+			Logger.Flush();
 		}
 
 		private static string PathInsertPostfix(string path, string postfix) {
@@ -28,7 +31,7 @@ namespace ConfuserExTools.ProxyKiller {
 		private void SaveAs(string filePath) {
 			Logger.LogInfo($"共 {_count} 个代理方法被还原");
 			Logger.LogInfo("正在保存: " + Path.GetFullPath(filePath));
-			Logger.LogNewLine();
+			Logger.LogInfo();
 			var options = new ModuleWriterOptions(_module);
 			if (_settings.PreserveAll)
 				options.MetadataOptions.Flags |= MetadataFlags.PreserveAll;

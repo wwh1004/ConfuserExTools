@@ -1,5 +1,6 @@
 using System;
 using dnlib.DotNet;
+using Tool;
 
 namespace ConfuserExTools.ProxyKiller {
 	internal sealed class DnlibLogger : ILogger {
@@ -21,7 +22,7 @@ namespace ConfuserExTools.ProxyKiller {
 			case LoggerEvent.Warning: Logger.LogWarning(text); break;
 			case LoggerEvent.Info: Logger.LogInfo(text); break;
 			case LoggerEvent.Verbose:
-			case LoggerEvent.VeryVerbose: Logger.Log(text + Environment.NewLine, ConsoleColor.DarkGray); break;
+			case LoggerEvent.VeryVerbose: Logger.LogDebugInfo(text); break;
 			default: throw new ArgumentOutOfRangeException(nameof(loggerEvent));
 			}
 		}

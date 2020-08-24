@@ -6,12 +6,18 @@ using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using dnlib.DotNet;
 using dnlib.DotNet.Emit;
+using Tool;
 using FieldAttributes = dnlib.DotNet.FieldAttributes;
 using TypeAttributes = dnlib.DotNet.TypeAttributes;
 
 namespace ConfuserExTools.ConstantKiller {
 	public static class ConstantKillerImpl {
 		public static int Execute(ModuleDef module, Module reflModule) {
+			if (module is null)
+				throw new ArgumentNullException(nameof(module));
+			if (reflModule is null)
+				throw new ArgumentNullException(nameof(reflModule));
+
 			var decrypters = new HashSet<MethodDef>();
 			foreach (var method in module.GlobalType.Methods) {
 				if (!method.HasBody)
@@ -179,7 +185,6 @@ namespace ConfuserExTools.ConstantKiller {
 			foreach (var decrypter in decrypters)
 				decrypter.DeclaringType.Methods.Remove(decrypter);
 
-			Logger.Synchronize();
 			return count;
 		}
 

@@ -2,6 +2,7 @@ using System.IO;
 using System.Reflection;
 using dnlib.DotNet;
 using dnlib.DotNet.Writer;
+using Tool;
 using Tool.Interface;
 
 namespace ConfuserExTools.ConstantKiller {
@@ -13,16 +14,14 @@ namespace ConfuserExTools.ConstantKiller {
 		public string Title => GetTitle();
 
 		public void Execute(ConstantKillerSettings settings) {
-			Logger.Initialize();
-			// TODO 解决logger的问题，目前不能共享
-			// todo: proxykiller也要logger.sync()
+			Logger.Initialize(false);
 			_settings = settings;
 			using (var module = ModuleDefMD.Load(settings.AssemblyPath)) {
 				_module = module;
 				_count = ConstantKillerImpl.Execute(module, Assembly.LoadFile(settings.AssemblyPath).ManifestModule);
 				SaveAs(PathInsertPostfix(settings.AssemblyPath, ".ck"));
 			}
-			Logger.Synchronize();
+			Logger.Flush();
 		}
 
 		private static string PathInsertPostfix(string path, string postfix) {
@@ -32,7 +31,7 @@ namespace ConfuserExTools.ConstantKiller {
 		private void SaveAs(string filePath) {
 			Logger.LogInfo($"共 {_count} 个常量被解密");
 			Logger.LogInfo("正在保存: " + Path.GetFullPath(filePath));
-			Logger.LogNewLine();
+			Logger.LogInfo();
 			var options = new ModuleWriterOptions(_module);
 			if (_settings.PreserveAll)
 				options.MetadataOptions.Flags |= MetadataFlags.PreserveAll;
