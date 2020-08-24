@@ -1,0 +1,20 @@
+version: '{build}'
+image: Visual Studio 2019
+configuration: Release
+platform: Any CPU
+before_build:
+- cmd: appveyor-retry nuget restore
+build:
+  project: ConfuserExTools.sln
+  verbosity: normal
+artifacts:
+- path: bin\Release
+  name: ConfuserExTools
+deploy:
+- provider: GitHub
+  tag: $(APPVEYOR_REPO_TAG_NAME)
+  release: ConfuserExTools
+  auth_token:
+    secure: +8UJ1C312inNq+80I8WST34vPMrCylnmTx+9rmuIh1qnsArA5x2b8yc+kcwkXmQC
+  on:
+    APPVEYOR_REPO_TAG: true
