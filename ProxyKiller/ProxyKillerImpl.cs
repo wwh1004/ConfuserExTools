@@ -14,7 +14,7 @@ namespace ConfuserExTools.ProxyKiller {
 			foreach (var method in module.EnumerateAllMethods()) {
 				if (!method.HasBody)
 					continue;
-				if (!(ignoreAccess || method.IsPrivateScope) || !method.IsStatic)
+				if (!(ignoreAccess || method.IsPrivateScope))
 					continue;
 
 				bool isProxy = true;

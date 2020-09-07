@@ -21,7 +21,7 @@ namespace ConfuserExTools.ConfuserExKiller {
 			if (!peImage.SequenceEqual(peImageOld))
 				Logger.LogInfo($"AntiTamper已移除");
 			using (var module = ModuleDefMD.Load(peImage)) {
-				int count = ProxyKillerImpl.Execute(module, false, false);
+				int count = ProxyKillerImpl.Execute(module, false, true);
 				Logger.LogInfo($"共 {count} 个代理方法被还原");
 				count = ConstantKillerImpl.Execute(module, reflModule);
 				Logger.LogInfo($"共 {count} 个常量被解密");

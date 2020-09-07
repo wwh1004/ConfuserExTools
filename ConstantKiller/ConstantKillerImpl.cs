@@ -155,11 +155,11 @@ namespace ConfuserExTools.ConstantKiller {
 							break;
 						case ElementType.I4:
 						case ElementType.U4:
+						case ElementType.R4:
 							elementSize = 4;
 							break;
 						case ElementType.I8:
 						case ElementType.U8:
-						case ElementType.R4:
 						case ElementType.R8:
 							elementSize = 8;
 							break;
