@@ -19,13 +19,13 @@ namespace ConfuserExTools.ConstantKiller {
 			using (var module = ModuleDefMD.Load(settings.AssemblyPath)) {
 				_module = module;
 				_count = ConstantKillerImpl.Execute(module, Assembly.LoadFile(settings.AssemblyPath).ManifestModule);
-				SaveAs(PathInsertPostfix(settings.AssemblyPath, ".ck"));
+				SaveAs(PathInsertSuffix(settings.AssemblyPath, ".ck"));
 			}
 			Logger.Flush();
 		}
 
-		private static string PathInsertPostfix(string path, string postfix) {
-			return Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path) + postfix + Path.GetExtension(path));
+		private static string PathInsertSuffix(string path, string suffix) {
+			return Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path) + suffix + Path.GetExtension(path));
 		}
 
 		private void SaveAs(string filePath) {

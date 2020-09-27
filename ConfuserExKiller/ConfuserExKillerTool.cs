@@ -25,7 +25,7 @@ namespace ConfuserExTools.ConfuserExKiller {
 				Logger.LogInfo($"共 {count} 个代理方法被还原");
 				count = ConstantKillerImpl.Execute(module, reflModule);
 				Logger.LogInfo($"共 {count} 个常量被解密");
-				string newFilePath = PathInsertPostfix(settings.AssemblyPath, ".cexk");
+				string newFilePath = PathInsertSuffix(settings.AssemblyPath, ".cexk");
 				Logger.LogInfo($"正在保存: {newFilePath}");
 				Logger.LogInfo();
 				module.Write(newFilePath, new ModuleWriterOptions(module) { Logger = DnlibLogger.Instance });
@@ -33,8 +33,8 @@ namespace ConfuserExTools.ConfuserExKiller {
 			Logger.Flush();
 		}
 
-		private static string PathInsertPostfix(string path, string postfix) {
-			return Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path) + postfix + Path.GetExtension(path));
+		private static string PathInsertSuffix(string path, string suffix) {
+			return Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path) + suffix + Path.GetExtension(path));
 		}
 
 		private static string GetTitle() {

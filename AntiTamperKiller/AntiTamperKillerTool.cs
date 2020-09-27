@@ -10,12 +10,12 @@ namespace ConfuserExTools.AntiTamperKiller {
 		public void Execute(AntiTamperKillerSettings settings) {
 			Logger.Initialize(false);
 			byte[] peImage = AntiTamperKillerImpl.Execute(Assembly.LoadFile(settings.AssemblyPath).ManifestModule, File.ReadAllBytes(settings.AssemblyPath));
-			SaveAs(PathInsertPostfix(settings.AssemblyPath, ".atk"), peImage);
+			SaveAs(PathInsertSuffix(settings.AssemblyPath, ".atk"), peImage);
 			Logger.Flush();
 		}
 
-		private static string PathInsertPostfix(string path, string postfix) {
-			return Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path) + postfix + Path.GetExtension(path));
+		private static string PathInsertSuffix(string path, string suffix) {
+			return Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path) + suffix + Path.GetExtension(path));
 		}
 
 		private static void SaveAs(string filePath, byte[] peImage) {

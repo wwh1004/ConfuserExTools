@@ -19,13 +19,13 @@ namespace ConfuserExTools.ProxyKiller {
 			using (var module = ModuleDefMD.Load(settings.AssemblyPath)) {
 				_module = module;
 				_count = ProxyKillerImpl.Execute(module, settings.IgnoreAccess, !settings.PreserveProxyMethods && !settings.PreserveAll);
-				SaveAs(PathInsertPostfix(settings.AssemblyPath, ".pk"));
+				SaveAs(PathInsertSuffix(settings.AssemblyPath, ".pk"));
 			}
 			Logger.Flush();
 		}
 
-		private static string PathInsertPostfix(string path, string postfix) {
-			return Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path) + postfix + Path.GetExtension(path));
+		private static string PathInsertSuffix(string path, string suffix) {
+			return Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path) + suffix + Path.GetExtension(path));
 		}
 
 		private void SaveAs(string filePath) {
