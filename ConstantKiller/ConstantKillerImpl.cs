@@ -231,6 +231,7 @@ namespace ConfuserExTools.ConstantKiller {
 				var compilerGeneratedAttribute = module.CorLibTypes.GetTypeRef("System.Runtime.CompilerServices", "CompilerGeneratedAttribute");
 				var ca = new CustomAttribute(new MemberRefUser(module, ".ctor", MethodSig.CreateInstance(module.CorLibTypes.Void), compilerGeneratedAttribute));
 				privateImplementationDetails.CustomAttributes.Add(ca);
+				module.Types.Add(privateImplementationDetails);
 			}
 			string storageStructName = $"__StaticArrayInitTypeSize={data.Length}";
 			var storageStruct = privateImplementationDetails.NestedTypes.FirstOrDefault(t => t.Name == storageStructName);
