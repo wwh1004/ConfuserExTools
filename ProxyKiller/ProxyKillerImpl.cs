@@ -9,13 +9,42 @@ namespace ConfuserExTools.ProxyKiller {
 		public static int Execute(ModuleDef module, bool ignoreAccess, bool removeProxyMethods) {
 			if (module is null)
 				throw new ArgumentNullException(nameof(module));
-
+			var dict = new HashSet<MethodDef>();
+			foreach (var type in module.GetTypes()) {
+				foreach (var method in type.Methods) {
+					if (!method.HasBody)
+						continue;
+					var instrs = method.Body.Instructions;
+					if (instrs.Count != 2)
+						continue;
+					if (!instrs[0].IsLdcI4())
+						continue;
+					dict.Add(method);
+				}
+			}
+			foreach (var type in module.GetTypes()) {
+				foreach (var method in type.Methods) {
+					if (!method.HasBody)
+						continue;
+					var instrs = method.Body.Instructions;
+					foreach (var instr in instrs) {
+						if (instr.OpCode.Code != dnlib.DotNet.Emit.Code.Call)
+							continue;
+						if (!(instr.Operand is MethodDef op))
+							continue;
+						if (!dict.Contains(op))
+							continue;
+						instr.OpCode = op.Body.Instructions[0].OpCode;
+						instr.Operand = op.Body.Instructions[0].Operand;
+					}
+				}
+			}
 			var proxyMethods = new Dictionary<MethodDef, Instruction>();
 			foreach (var method in module.EnumerateAllMethods()) {
 				if (!method.HasBody)
 					continue;
-				if (!(ignoreAccess || method.IsPrivateScope))
-					continue;
+				//if (!(ignoreAccess || method.IsPrivateScope))
+				//	continue;
 
 				bool isProxy = true;
 				var realInstruction = default(Instruction);
@@ -78,10 +107,10 @@ namespace ConfuserExTools.ProxyKiller {
 			module.Context.AssemblyResolver = oldAssemblyResolver;
 			module.Context.Resolver = oldResolver;
 
-			if (removeProxyMethods) {
-				foreach (var proxyMethod in proxyMethods.Keys)
-					proxyMethod.DeclaringType.Methods.Remove(proxyMethod);
-			}
+			//if (removeProxyMethods) {
+			//	foreach (var proxyMethod in proxyMethods.Keys)
+			//		proxyMethod.DeclaringType.Methods.Remove(proxyMethod);
+			//}
 
 			return proxyMethods.Count;
 		}
