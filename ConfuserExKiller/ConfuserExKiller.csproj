@@ -19,6 +19,9 @@
 		<ProjectReference Include="..\ProxyKiller\ProxyKiller.csproj" />
 	</ItemGroup>
 	<ItemGroup>
+		<Reference Include="MinHook">
+		  <HintPath>..\..\MinHook\bin\Debug\net20\MinHook.dll</HintPath>
+		</Reference>
 		<Reference Include="Tool.Interface">
 			<HintPath>..\Libraries\Tool.Interface\Tool.Interface.dll</HintPath>
 		</Reference>

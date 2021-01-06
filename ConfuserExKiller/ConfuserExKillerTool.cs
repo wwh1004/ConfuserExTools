@@ -15,6 +15,8 @@ namespace ConfuserExTools.ConfuserExKiller {
 
 		public void Execute(ConfuserExKillerSettings settings) {
 			Logger.Initialize(false);
+			MinHooking.MinHookFactory.Create(typeof(Assembly).GetMethod("GetCallingAssembly"), typeof(Assembly).GetMethod("GetExecutingAssembly")).Enable();
+			MinHooking.MinHookFactory.Create(typeof(Assembly).GetMethod("GetEntryAssembly"), typeof(Assembly).GetMethod("GetExecutingAssembly")).Enable();
 			var reflModule = Assembly.LoadFile(settings.AssemblyPath).ManifestModule;
 			byte[] peImageOld = File.ReadAllBytes(settings.AssemblyPath);
 			byte[] peImage = AntiTamperKillerImpl.Execute(reflModule, peImageOld);

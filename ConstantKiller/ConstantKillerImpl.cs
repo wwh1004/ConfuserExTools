@@ -57,7 +57,7 @@ namespace ConfuserExTools.ConstantKiller {
 					int key = 0;
 					for (int j = 1; j <= i; j++) {
 						var instr = instructions[i - j];
-						if (instr.OpCode.Code == Code.Nop)
+						if (instr.OpCode.Code == Code.Nop || (instr.IsBr() && instr.Operand == instructions[i]))
 							continue;
 						if (instr.OpCode.Code != Code.Ldc_I4)
 							break;
