@@ -11,7 +11,7 @@ namespace ConfuserExTools.ProxyKiller {
 				throw new ArgumentNullException(nameof(module));
 
 			var proxyMethods = new Dictionary<MethodDef, Instruction>();
-			foreach (var method in module.EnumerateAllMethods()) {
+			foreach (var method in module.EnumerateMethods()) {
 				if (!method.HasBody)
 					continue;
 				if (!(ignoreAccess || method.IsPrivateScope))
@@ -56,7 +56,7 @@ namespace ConfuserExTools.ProxyKiller {
 			var oldResolver = module.Context.Resolver;
 			module.Context.AssemblyResolver = NullResolver.Instance;
 			module.Context.Resolver = new Resolver(NullResolver.Instance);
-			foreach (var method in module.EnumerateAllMethods()) {
+			foreach (var method in module.EnumerateMethods()) {
 				if (!method.HasBody)
 					continue;
 				if (proxyMethods.ContainsKey(method))

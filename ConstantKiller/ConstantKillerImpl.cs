@@ -35,7 +35,7 @@ namespace ConfuserExTools.ConstantKiller {
 			module.Context.AssemblyResolver = NullResolver.Instance;
 			module.Context.Resolver = new Resolver(NullResolver.Instance);
 			int count = 0;
-			foreach (var method in module.EnumerateAllMethods()) {
+			foreach (var method in module.EnumerateMethods()) {
 				if (!method.HasBody)
 					continue;
 				if (decrypters.Contains(method))
