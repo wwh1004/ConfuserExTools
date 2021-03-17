@@ -41,6 +41,7 @@ namespace ConfuserExTools.ConstantKiller {
 				if (decrypters.Contains(method))
 					continue;
 
+				method.Body.SimplifyMacros(method.Parameters);
 				for (int i = 1; i < method.Body.Instructions.Count; i++) {
 					var instructions = method.Body.Instructions;
 					var instruction = instructions[i];
