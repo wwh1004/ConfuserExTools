@@ -1,12 +1,11 @@
 using System;
-using System.Cli;
 using System.IO;
 
 namespace ConfuserExTools.AntiTamperKiller {
 	public sealed class AntiTamperKillerSettings {
 		private string _assemblyPath;
 
-		[Argument("-f", IsRequired = true, Type = "FILE", Description = "程序集路径")]
+		[Option("-f", IsRequired = true, Description = "程序集路径")]
 		internal string AssemblyPathCliSetter {
 			set => AssemblyPath = value;
 		}

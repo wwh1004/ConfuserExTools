@@ -4,6 +4,7 @@ using dnlib.DotNet;
 using dnlib.DotNet.Writer;
 using Tool;
 using Tool.Interface;
+using Tool.Logging;
 
 namespace ConfuserExTools.ProxyKiller {
 	public sealed class ProxyKillerTool : ITool<ProxyKillerSettings> {
@@ -14,7 +15,6 @@ namespace ConfuserExTools.ProxyKiller {
 		public string Title => GetTitle();
 
 		public void Execute(ProxyKillerSettings settings) {
-			Logger.Initialize(false);
 			_settings = settings;
 			using (var module = ModuleDefMD.Load(settings.AssemblyPath)) {
 				_module = module;
@@ -29,9 +29,9 @@ namespace ConfuserExTools.ProxyKiller {
 		}
 
 		private void SaveAs(string filePath) {
-			Logger.LogInfo($"共 {_count} 个代理方法被还原");
-			Logger.LogInfo($"正在保存: {filePath}");
-			Logger.LogInfo();
+			Logger.Info($"共 {_count} 个代理方法被还原");
+			Logger.Info($"正在保存: {filePath}");
+			Logger.Info();
 			var options = new ModuleWriterOptions(_module);
 			if (_settings.PreserveAll)
 				options.MetadataOptions.Flags |= MetadataFlags.PreserveAll;
