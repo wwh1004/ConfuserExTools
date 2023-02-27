@@ -4,6 +4,7 @@ using dnlib.DotNet;
 using dnlib.DotNet.Writer;
 using Tool;
 using Tool.Interface;
+using Tool.Logging;
 
 namespace ConfuserExTools.ConstantKiller {
 	public sealed class ConstantKillerTool : ITool<ConstantKillerSettings> {
@@ -14,14 +15,12 @@ namespace ConfuserExTools.ConstantKiller {
 		public string Title => GetTitle();
 
 		public void Execute(ConstantKillerSettings settings) {
-			Logger.Initialize(false);
 			_settings = settings;
 			using (var module = ModuleDefMD.Load(settings.AssemblyPath)) {
 				_module = module;
 				_count = ConstantKillerImpl.Execute(module, Assembly.LoadFile(settings.AssemblyPath).ManifestModule);
 				SaveAs(PathInsertSuffix(settings.AssemblyPath, ".ck"));
 			}
-			Logger.Flush();
 		}
 
 		private static string PathInsertSuffix(string path, string suffix) {
@@ -29,9 +28,9 @@ namespace ConfuserExTools.ConstantKiller {
 		}
 
 		private void SaveAs(string filePath) {
-			Logger.LogInfo($"共 {_count} 个常量被解密");
-			Logger.LogInfo($"正在保存: {filePath}");
-			Logger.LogInfo();
+			Logger.Info($"共 {_count} 个常量被解密");
+			Logger.Info($"正在保存: {filePath}");
+			Logger.Info();
 			var options = new ModuleWriterOptions(_module);
 			if (_settings.PreserveAll)
 				options.MetadataOptions.Flags |= MetadataFlags.PreserveAll;

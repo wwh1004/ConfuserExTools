@@ -2,13 +2,13 @@ using System.IO;
 using System.Reflection;
 using Tool;
 using Tool.Interface;
+using Tool.Logging;
 
 namespace ConfuserExTools.AntiTamperKiller {
 	public sealed class AntiTamperKillerTool : ITool<AntiTamperKillerSettings> {
 		public string Title => GetTitle();
 
 		public void Execute(AntiTamperKillerSettings settings) {
-			Logger.Initialize(false);
 			byte[] peImage = AntiTamperKillerImpl.Execute(Assembly.LoadFile(settings.AssemblyPath).ManifestModule, File.ReadAllBytes(settings.AssemblyPath));
 			SaveAs(PathInsertSuffix(settings.AssemblyPath, ".atk"), peImage);
 			Logger.Flush();
@@ -19,9 +19,9 @@ namespace ConfuserExTools.AntiTamperKiller {
 		}
 
 		private static void SaveAs(string filePath, byte[] peImage) {
-			Logger.LogInfo($"正在保存: {filePath}");
-			Logger.LogInfo("请手动移除AntiTamper初始化代码");
-			Logger.LogInfo();
+			Logger.Info($"正在保存: {filePath}");
+			Logger.Info("请手动移除AntiTamper初始化代码");
+			Logger.Info();
 			File.WriteAllBytes(filePath, peImage);
 		}
 

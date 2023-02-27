@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using dnlib.DotNet;
 using dnlib.DotNet.Emit;
 using Tool;
+using Tool.Logging;
 using FieldAttributes = dnlib.DotNet.FieldAttributes;
 using TypeAttributes = dnlib.DotNet.TypeAttributes;
 
@@ -67,7 +68,7 @@ namespace ConfuserExTools.ConstantKiller {
 						break;
 					}
 					if (ldKeyInstr is null) {
-						Logger.LogError($"[0x{method.MDToken.Raw:X8}] 无法找到常量解密器参数");
+						Logger.Error($"[0x{method.MDToken.Raw:X8}] 无法找到常量解密器参数");
 						continue;
 					}
 
@@ -78,7 +79,7 @@ namespace ConfuserExTools.ConstantKiller {
 					var reflType = ToType(elementType);
 					if (reflType is null) {
 						if (elementType != ElementType.SZArray) {
-							Logger.LogError($"[0x{method.MDToken.Raw:X8}] 无效常量解密器泛型参数");
+							Logger.Error($"[0x{method.MDToken.Raw:X8}] 无效常量解密器泛型参数");
 							continue;
 						}
 
@@ -87,7 +88,7 @@ namespace ConfuserExTools.ConstantKiller {
 						arrayElementType = arrayType.ElementType;
 						reflType = ToType(arrayElementType);
 						if (reflType is null) {
-							Logger.LogError($"[0x{method.MDToken.Raw:X8}] 无效常量解密器泛型参数");
+							Logger.Error($"[0x{method.MDToken.Raw:X8}] 无效常量解密器泛型参数");
 							continue;
 						}
 					}
@@ -98,12 +99,12 @@ namespace ConfuserExTools.ConstantKiller {
 						value = reflMethod.Invoke(null, new object[] { (uint)key });
 					}
 					catch (Exception ex) {
-						Logger.LogError($"[0x{method.MDToken.Raw:X8}] 调用常量解密器失败");
-						Logger.LogException(ex);
+						Logger.Error($"[0x{method.MDToken.Raw:X8}] 调用常量解密器失败");
+						Logger.Exception(ex);
 						continue;
 					}
 					if (value is null) {
-						Logger.LogError($"[0x{method.MDToken.Raw:X8}] 常量解密器返回值为空");
+						Logger.Error($"[0x{method.MDToken.Raw:X8}] 常量解密器返回值为空");
 						continue;
 					}
 

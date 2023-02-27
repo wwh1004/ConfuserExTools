@@ -8,26 +8,26 @@ using dnlib.DotNet;
 using dnlib.DotNet.Writer;
 using Tool;
 using Tool.Interface;
+using Tool.Logging;
 
 namespace ConfuserExTools.ConfuserExKiller {
 	public sealed class ConfuserExKillerTool : ITool<ConfuserExKillerSettings> {
 		public string Title => GetTitle();
 
 		public void Execute(ConfuserExKillerSettings settings) {
-			Logger.Initialize(false);
 			var reflModule = Assembly.LoadFile(settings.AssemblyPath).ManifestModule;
 			byte[] peImageOld = File.ReadAllBytes(settings.AssemblyPath);
 			byte[] peImage = AntiTamperKillerImpl.Execute(reflModule, peImageOld);
 			if (!peImage.SequenceEqual(peImageOld))
-				Logger.LogInfo($"AntiTamper已移除");
+				Logger.Info($"AntiTamper已移除");
 			using (var module = ModuleDefMD.Load(peImage)) {
 				int count = ProxyKillerImpl.Execute(module, false, true);
-				Logger.LogInfo($"共 {count} 个代理方法被还原");
+				Logger.Info($"共 {count} 个代理方法被还原");
 				count = ConstantKillerImpl.Execute(module, reflModule);
-				Logger.LogInfo($"共 {count} 个常量被解密");
+				Logger.Info($"共 {count} 个常量被解密");
 				string newFilePath = PathInsertSuffix(settings.AssemblyPath, ".cexk");
-				Logger.LogInfo($"正在保存: {newFilePath}");
-				Logger.LogInfo();
+				Logger.Info($"正在保存: {newFilePath}");
+				Logger.Info();
 				module.Write(newFilePath, new ModuleWriterOptions(module) { Logger = DnlibLogger.Instance });
 			}
 			Logger.Flush();

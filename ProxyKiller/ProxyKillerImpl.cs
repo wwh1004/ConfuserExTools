@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using dnlib.DotNet;
 using dnlib.DotNet.Emit;
 using Tool;
+using Tool.Logging;
 
 namespace ConfuserExTools.ProxyKiller {
 	public static class ProxyKillerImpl {
@@ -45,7 +46,7 @@ namespace ConfuserExTools.ProxyKiller {
 					break;
 				}
 				if (!isProxy) {
-					Logger.LogWarning($"[0x{method.MDToken.Raw:X8}] {method} 不是代理方法（可能判断错误）");
+					Logger.Warning($"[0x{method.MDToken.Raw:X8}] {method} 不是代理方法（可能判断错误）");
 					continue;
 				}
 

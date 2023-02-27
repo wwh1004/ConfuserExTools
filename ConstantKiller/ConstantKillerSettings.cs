@@ -1,5 +1,4 @@
 using System;
-using System.Cli;
 using System.IO;
 
 namespace ConfuserExTools.ConstantKiller {
@@ -7,12 +6,12 @@ namespace ConfuserExTools.ConstantKiller {
 		private string _assemblyPath;
 		private bool _preserveAll;
 
-		[Argument("-f", IsRequired = true, Type = "FILE", Description = "程序集路径")]
+		[Option("-f", IsRequired = true, Description = "程序集路径")]
 		internal string AssemblyPathCliSetter {
 			set => AssemblyPath = value;
 		}
 
-		[Argument("--preserve-all", Description = "是否保留全部，仅还原代理方法")]
+		[Option("--preserve-all", Description = "是否保留全部，仅还原代理方法")]
 		internal bool PreserveAllCliSetter {
 			set => PreserveAll = value;
 		}
